@@ -472,6 +472,7 @@ void usage (void)
 	mprint ("           --noscte20: Ignore SCTE-20 data if present.\n");
 	mprint ("\n");
 	mprint ("Options that affect what kind of output will be produced:\n");
+        mprint ("            --noempty: Does not generate an output file if it is empty.\n");
 	mprint ("                 -bom: Append a BOM (Byte Order Mark) to output files.\n");
 	mprint ("                       Note that most text processing tools in linux will not\n");
 	mprint ("                       like BOM.\n");
@@ -993,6 +994,7 @@ int parse_parameters (struct ccx_s_options *opt, int argc, char *argv[])
 			if (!opt->live_stream) opt->live_stream=-1;
 			continue;
 		}
+                //Hereits12345
 		if (argv[i][0]!='-')
 		{
 			int rc;
@@ -1224,6 +1226,10 @@ int parse_parameters (struct ccx_s_options *opt, int argc, char *argv[])
 			opt->nohtmlescape=1;
 			continue;
 		}
+                if (strcmp (argv[i],"--noempty"))
+                {
+                        return EXIT_NO_OUTPUT;
+                }
 		if (strcmp(argv[i], "-bom") == 0){
 			opt->enc_cfg.no_bom = 0;
 			continue;
